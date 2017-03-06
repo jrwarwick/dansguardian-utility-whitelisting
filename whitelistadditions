@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SPOOLFILE="/var/spool/whitelist/add"  #sans ".txt" extension.
+EXCEPTIONFILE="/usr/local/etc/dansguardian/lists/exceptionsitelist"
+
+if [ -s ${SPOOLFILE}.txt ] ; then 
+
+	cp -p $EXCEPTIONFILE ${EXCEPTIONFILE}.`date +%Y%m%d%H%M`.backup
+	echo "# Added automatically from $0 : " `date +%Y%m%d` >> ${EXCEPTIONFILE}
+	cat ${SPOOLFILE}.txt | sort -u | grep -v '[#=@!~`_&,%]' >> $EXCEPTIONFILE
+
+	/usr/local/sbin/dansguardian -r
+
+	logger -p local0.notice -t dangsguardian -- "ExceptionSiteList addition $( tail -1 ${SPOOLFILE}.txt) by $0"
+
+	mv ${SPOOLFILE}.0 ${SPOOLFILE}.1
+	mv ${SPOOLFILE}.txt ${SPOOLFILE}.0
+
+fi
