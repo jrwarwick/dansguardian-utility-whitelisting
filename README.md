@@ -13,11 +13,11 @@ Parts:
  - a simple dansguardian daemon restarting binary. This is so that we can give it setuid; many 'NIXs prohibit setuid on scripts.
 
 Config & Install:
-#Compile reload_dansguardian.c
-#cd into your apache cgi-bin/scripts directory
-mkdir admin
-#populate /usr/local/www/apache24/cgi-bin/admin/.htpasswd  (configure this with the htpasswd utility. Try man htpasswd )
-#Copy the binaries and scripts to respective destinations:
+ - Compile reload_dansguardian.c
+ - cd into your apache cgi-bin/scripts directory
+ - mkdir admin
+ - populate /usr/local/www/apache24/cgi-bin/admin/.htpasswd  (configure this with the htpasswd utility. Try man htpasswd )
+ - Copy the binaries and scripts to respective destinations:
 	/usr/local/sbin/reload_dansguardian
 	/usr/local/share/dansguardian/scripts/whitelistadditions
 	/usr/local/www/apache24/cgi-bin/admin/dansguardian-whitelist.pl
